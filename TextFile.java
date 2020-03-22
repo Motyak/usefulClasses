@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 public class TextFile {
 
 	/**
-	 * Reads a file and return its content as a String
+	 * Read a file and return its content as a String
 	 * @param filePath the absolute path of the targeted file
 	 * @return the content of the targeted file as a String
 	 * @throws IOException if there's a problem finding/reading the file
@@ -43,6 +43,7 @@ public class TextFile {
 	
 
 	/**
+	 * Get the number of lines in a file
 	 * @param filePath the absolute path of the targeted file
 	 * @return the number of lines in the targeted file
 	 * @throws IOException if there's a problem finding/reading the file
@@ -59,8 +60,9 @@ public class TextFile {
 	}
 	
 	/**
+	 * Read a file and return an overview of it
 	 * @param filePath the absolute path of the targeted file
-	 * @param nbOfLines the size of the overview (in nb of lines)
+	 * @param nbOfLines the nb of first and last lines to return
 	 * @return an overview of the targeted file (certain number of lines)
 	 * @throws IOException if there's a problem finding/reading the file
 	 */
@@ -93,6 +95,7 @@ public class TextFile {
 	}
 	
 	/**
+	 * Create a file and write a String in it
 	 * @param content the content to write into the file
 	 * @param filePath the absolute path of the file to create
 	 * @throws IOException if there's a problem finding/writing the file
@@ -106,6 +109,7 @@ public class TextFile {
 	
 
 	/**
+	 * Rename an existing file
 	 * @param dirPath the directory containing the file to rename
 	 * @param oldFileName the name of the file to rename
 	 * @param newFileName the future name of the file
@@ -127,6 +131,7 @@ public class TextFile {
 	}
 	
 	/**
+	 * Delete an existing file
 	 * @param filePath the absolute path of the file to delete
 	 * @throws Exception if there's a problem finding/deleting the file
 	 */
@@ -139,24 +144,22 @@ public class TextFile {
 
 	public static void main(String[] args) throws Exception
 	{
-		String userDir=System.getProperty("user.dir");
-		String fsep=File.separator;
+		String userDir=System.getProperty("user.dir") + File.separator;
+		String content=new String("line1\nline2\nline3");
 		
-		String str=new String("line1\nline2\nline3");
+		System.out.println("creating file1 with the content of str..");
+		TextFile.stringToFile(content, userDir + "file1");
 		
-		System.out.println("creating file1 with the content of str");
-		TextFile.stringToFile(str, userDir + fsep + "file1");
+		System.out.println("renaming file1 into file2.. (and overwriting if the file already exists)");
+		TextFile.rename(userDir, "file1", "file2", true);
 		
-		System.out.println("renaming file1 into file2 (and overwriting if the file already exists)");
-		TextFile.rename(userDir + fsep, "file1", "file2", true);
+		System.out.println("reading and printing file2 content..");
+		System.out.println(TextFile.fileToString(userDir + "file2"));
 		
-		System.out.println("reading et printing file2 content");
-		System.out.println(TextFile.fileToString(userDir + fsep + "file2"));
+		System.out.println("reading only the first and last line of file2..");
+		System.out.println(TextFile.overview(userDir + "file2", 1));
 		
-		System.out.println("reading only the first and last line of file2");
-		System.out.println(TextFile.overview(userDir + fsep + "file2", 1));
-		
-		System.out.println("deleting file2");
-		TextFile.delete(userDir + fsep + "file2"); 
+		System.out.println("deleting file2..");
+		TextFile.delete(userDir + "file2"); 
 	}
 }
