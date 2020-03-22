@@ -28,7 +28,7 @@ public class HttpCon {
 		if(headers != null) {
 			String field, value;
 			for(String s : headers) {
-				if(s!=null) {
+				if(s != null) {
 					field = s.substring(0, s.indexOf(':'));
 					value = s.substring(s.indexOf(':') + 1);
 					connection.setRequestProperty(field, value);
