@@ -1,3 +1,5 @@
+package Mk;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,7 +18,7 @@ public class HttpCon {
 	 * @param url the URL of the website to send the request to (can contain query strings)
 	 * @param headers the HTTP headers to use (can be set to null if none)
 	 * @param data the data to send to the server if any (can be set to null if none)
-	 * @return a response
+	 * @return a response from the server
 	 * @throws IOException if the connection with the server cannot be established
 	 */
 	public static String request(Type reqType, String url, String[] headers, String data) throws IOException {
@@ -63,6 +65,16 @@ public class HttpCon {
 		return content.toString();
 	}
 	
+	/**
+	 * Send an HTTP request to a server (URL)
+	 * @param r HTTP request to execute
+	 * @return a response from the server
+	 * @throws IOException if the connection with the server cannot be established
+	 */
+	public static String exec(Request r) throws IOException {
+		return HttpCon.request(r.reqType, r.url, r.headers, r.data);
+	}
+	
 	public static void main(String[] args) throws IOException
 	{
 		{
@@ -84,10 +96,25 @@ public class HttpCon {
 				"  </query>\r\n" + 
 				"  <print/>\r\n" + 
 				"</osm-script>";
-			String res = HttpCon.request(Type.POST, url, headers, data);
+			final Request OVERPASS_REQ = new Request(Type.POST, url, headers, data);
+			String res = HttpCon.exec(OVERPASS_REQ);
 			System.out.println(res);
 		}
 	}
 }
 
 enum Type { GET, POST; }
+
+class Request {
+	public Type reqType;
+	public String url;
+	public String[] headers;
+	public String data;
+	
+	public Request(Type reqType, String url, String[] headers, String data) {
+		this.reqType = reqType;
+		this.url = url;
+		this.headers = headers;
+		this.data = data;
+	}
+}

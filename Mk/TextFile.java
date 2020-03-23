@@ -1,3 +1,5 @@
+package Mk;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -78,6 +80,7 @@ public class TextFile {
 			sb.append(buf.readLine()).append("\n");
 		
 		buf.close();
+		reader.close();
 		sb.setLength(sb.length() - 1);
 		
 		return sb.toString();
