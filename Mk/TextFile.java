@@ -18,6 +18,26 @@ import java.nio.file.Paths;
  * @author Motyak
  */
 public class TextFile {
+	
+	public static void main(String[] args) throws Exception {
+		String userDir=System.getProperty("user.dir") + File.separator;
+		String content=new String("line1\nline2\nline3");
+		
+		System.out.println("creating file1 with the content of str..");
+		TextFile.stringToFile(content, userDir + "file1");
+		
+		System.out.println("renaming file1 into file2.. (and overwriting if the file already exists)");
+		TextFile.rename(userDir, "file1", "file2", true);
+		
+		System.out.println("reading and printing file2 content..");
+		System.out.println(TextFile.fileToString(userDir + "file2"));
+		
+		System.out.println("reading only the first and last line of file2..");
+		System.out.println(TextFile.overview(userDir + "file2", 1));
+		
+		System.out.println("deleting file2..");
+		new File(userDir + "file2").delete();
+	}
 
 	/**
 	 * Read a file and return its content as a String
@@ -108,25 +128,5 @@ public class TextFile {
 	
 	private static long nbOfLines(String filePath) throws IOException {
 		return Files.lines(Paths.get(filePath)).count();
-	}
-
-	public static void main(String[] args) throws Exception {
-		String userDir=System.getProperty("user.dir") + File.separator;
-		String content=new String("line1\nline2\nline3");
-		
-		System.out.println("creating file1 with the content of str..");
-		TextFile.stringToFile(content, userDir + "file1");
-		
-		System.out.println("renaming file1 into file2.. (and overwriting if the file already exists)");
-		TextFile.rename(userDir, "file1", "file2", true);
-		
-		System.out.println("reading and printing file2 content..");
-		System.out.println(TextFile.fileToString(userDir + "file2"));
-		
-		System.out.println("reading only the first and last line of file2..");
-		System.out.println(TextFile.overview(userDir + "file2", 1));
-		
-		System.out.println("deleting file2..");
-		new File(userDir + "file2").delete();
 	}
 }
