@@ -12,6 +12,33 @@ import java.net.URL;
  */
 public class HttpCon {
 	
+	public static void main(String[] args) throws IOException
+	{
+		{
+			System.out.println("Simple example : printing 5 random 2-digit numbers generated from random.org");
+			String url = "https://www.random.org/integers/?num=5&min=1&max=99&col=5&base=10&format=plain&rnd=new";
+			String res = HttpCon.request(Type.GET, url, null, null);
+			System.out.println(res);
+		}
+		
+		{
+			System.out.println("Full example : getting all fast food restaurants in Monaco from Overpass API");
+			String url = "https://lz4.overpass-api.de/api/interpreter";
+			String[] headers = {"Content-Type: text/xml"};
+			String data = 
+				"<osm-script output=\"json\">\r\n" + 
+				"  <query type=\"node\">\r\n" + 
+				"    <has-kv k=\"amenity\" v=\"fast_food\"/>\r\n" + 
+				"    <bbox-query s=\"43.7247599\" w=\"7.4090279\" n=\"43.7519311\" e=\"7.4398704\"/>\r\n" + 
+				"  </query>\r\n" + 
+				"  <print/>\r\n" + 
+				"</osm-script>";
+			final Request OVERPASS_REQ = new Request(Type.POST, url, headers, data);
+			String res = HttpCon.exec(OVERPASS_REQ);
+			System.out.println(res);
+		}
+	}
+	
 	/**
 	 * Send an HTTP request to a server (URL)
 	 * @param reqType the HTTP method to use
@@ -67,7 +94,7 @@ public class HttpCon {
 	
 	/**
 	 * Send an HTTP request to a server (URL)
-	 * @param r HTTP request to execute
+	 * @param r the HTTP request to execute
 	 * @return a response from the server
 	 * @throws IOException if the connection with the server cannot be established
 	 */
@@ -75,46 +102,22 @@ public class HttpCon {
 		return HttpCon.request(r.reqType, r.url, r.headers, r.data);
 	}
 	
-	public static void main(String[] args) throws IOException
-	{
-		{
-			System.out.println("Simple example : printing 5 random 2-digit numbers generated from random.org");
-			String url = "https://www.random.org/integers/?num=5&min=1&max=99&col=5&base=10&format=plain&rnd=new";
-			String res = HttpCon.request(Type.GET, url, null, null);	
-			System.out.println(res);
-		}
+	static public enum Type { GET, POST; }
+
+	static public class Request {
+		public Type reqType;
+		public String url;
+		public String[] headers;
+		public String data;
 		
-		{
-			System.out.println("Full example : getting all fast food restaurants in Monaco from Overpass API");
-			String url = "https://lz4.overpass-api.de/api/interpreter";
-			String[] headers = {"Content-Type: text/xml"};
-			String data = 
-				"<osm-script output=\"json\">\r\n" + 
-				"  <query type=\"node\">\r\n" + 
-				"    <has-kv k=\"amenity\" v=\"fast_food\"/>\r\n" + 
-				"    <bbox-query s=\"43.7247599\" w=\"7.4090279\" n=\"43.7519311\" e=\"7.4398704\"/>\r\n" + 
-				"  </query>\r\n" + 
-				"  <print/>\r\n" + 
-				"</osm-script>";
-			final Request OVERPASS_REQ = new Request(Type.POST, url, headers, data);
-			String res = HttpCon.exec(OVERPASS_REQ);
-			System.out.println(res);
+		public Request(Type reqType, String url, String[] headers, String data) {
+			this.reqType = reqType;
+			this.url = url;
+			this.headers = headers;
+			this.data = data;
 		}
 	}
-}
-
-enum Type { GET, POST; }
-
-class Request {
-	public Type reqType;
-	public String url;
-	public String[] headers;
-	public String data;
 	
-	public Request(Type reqType, String url, String[] headers, String data) {
-		this.reqType = reqType;
-		this.url = url;
-		this.headers = headers;
-		this.data = data;
-	}
 }
+
+
