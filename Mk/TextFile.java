@@ -20,8 +20,8 @@ import java.nio.file.Paths;
 public class TextFile {
 	
 	public static void main(String[] args) throws Exception {
-		String userDir=System.getProperty("user.dir") + File.separator;
-		String content=new String("line1\nline2\nline3");
+		String userDir = System.getProperty("user.dir") + File.separator;
+		String content = new String("line1\nline2\nline3");
 		
 		System.out.println("creating file1 with the content of str..");
 		TextFile.stringToFile(content, userDir + "file1");
@@ -64,13 +64,14 @@ public class TextFile {
 	
 	/**
 	 * Create a file and write a String in it
-	 * @param content the content to write into the file
+	 * @param stringable the content to write into the file, will use 'toString()' implementation
 	 * @param filePath the absolute path of the file to create
 	 * @throws IOException if there's a problem finding/writing the file
 	 */
-	public static void stringToFile(String content, String filePath) throws IOException {
+	public static void stringToFile(Object stringable, String filePath) throws IOException {
+		String str = stringable.toString();
 		BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-		writer.write(content);
+		writer.write(str);
 	    writer.close();
 	}
 	

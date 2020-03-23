@@ -116,6 +116,17 @@ public class HttpCon {
 			this.headers = headers;
 			this.data = data;
 		}
+		
+		@Override
+		public String toString() {
+			try {
+				return HttpCon.request(this.reqType, this.url, this.headers, this.data);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return "";	//in case of error
+		}
 	}
 	
 }
