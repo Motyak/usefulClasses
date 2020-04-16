@@ -8,11 +8,12 @@
 <br />
 
 ## HttpCon 
+[(File)](https://raw.githubusercontent.com/Motyak/usefulClasses/master/Mk/HttpCon.java)
 &emsp; &emsp; &emsp; &emsp;
 &emsp; &emsp; &emsp; &emsp; 
 &emsp; &emsp; &emsp; &emsp;
 &emsp; &emsp; &emsp; &emsp;
-&emsp; &nbsp; &nbsp; [(Back to contents)](#contents)
+[(Back to contents)](#contents)
 
 ### Construct an HTTP request (full example):
 ```
@@ -52,11 +53,12 @@ TextFile.stringToFile(r, filePath);
 <br />
 
 ## Pair
+[(File)](https://raw.githubusercontent.com/Motyak/usefulClasses/master/Mk/Pair.java)
 &emsp; &emsp; &emsp; &emsp;
 &emsp; &emsp; &emsp; &emsp; 
 &emsp; &emsp; &emsp; &emsp;
 &emsp; &emsp; &emsp; &emsp;
-&emsp; &nbsp; &nbsp; [(Back to contents)](#contents)
+[(Back to contents)](#contents)
 
 ```
 Pair<int,int> primes = new Pair<>(7, 91);
@@ -66,11 +68,12 @@ int sumOfPrimes = primes.first + primes.second;
 <br />
 
 ## Random
+[(File)](https://raw.githubusercontent.com/Motyak/usefulClasses/master/Mk/Random.java)
 &emsp; &emsp; &emsp; &emsp;
 &emsp; &emsp; &emsp; &emsp; 
 &emsp; &emsp; &emsp; &emsp;
 &emsp; &emsp; &emsp; &emsp;
-&emsp; &nbsp; &nbsp; [(Back to contents)](#contents)
+[(Back to contents)](#contents)
 
 ### Generate a random integer in a range:
 ```
@@ -85,11 +88,12 @@ double[] randDoubles = Random.genDoubles(5, 1.5, 10.5);
 <br />
 
 ## TextFile
+[(File)](https://raw.githubusercontent.com/Motyak/usefulClasses/master/Mk/TextFile.java)
 &emsp; &emsp; &emsp; &emsp;
 &emsp; &emsp; &emsp; &emsp; 
 &emsp; &emsp; &emsp; &emsp;
 &emsp; &emsp; &emsp; &emsp;
-&emsp; &nbsp; &nbsp; [(Back to contents)](#contents)
+[(Back to contents)](#contents)
 
 ### Write text in a file:
 ```
