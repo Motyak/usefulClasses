@@ -3,10 +3,9 @@ package Mk;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import javax.xml.bind.DatatypeConverter;
 
 /**
  * Static class to hash an object using MD5 algorithm
@@ -31,7 +30,7 @@ public class MD5 {
 	 * @throws IOException if writing the object to object output stream fails
 	 * @throws NoSuchAlgorithmException this will never happen
 	 */
-	static String hash(Object obj) throws IOException, NoSuchAlgorithmException {
+	public static String hash(Object obj) throws IOException, NoSuchAlgorithmException {
 		ByteArrayOutputStream baos = null;
 		ObjectOutputStream oos = null;
 
@@ -40,9 +39,13 @@ public class MD5 {
 			oos = new ObjectOutputStream(baos);
 			oos.writeObject(obj);
 			MessageDigest md = MessageDigest.getInstance("MD5");
-			byte[] thedigest = md.digest(baos.toByteArray());
-
-			return DatatypeConverter.printHexBinary(thedigest).toUpperCase();
+			byte[] digestBytes = md.digest(baos.toByteArray());
+			BigInteger no = new BigInteger(1, digestBytes);
+			String hashtext = no.toString(16);
+			while (hashtext.length() < 32) {
+				hashtext = "0" + hashtext; 
+	        }
+	        return hashtext.toUpperCase(); 
 		}
 		finally {
 			oos.close();
