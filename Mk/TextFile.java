@@ -26,7 +26,7 @@ public class TextFile {
 		TextFile.write(content, userDir + "file1");
 
 		System.out.println("renaming file1 into file2..");
-		TextFile.renameAndOverwrite(userDir, "file1", "file2");
+		TextFile.rename(userDir, "file1", "file2");
 
 		System.out.println("reading and printing file2 content..");
 		System.out.println(TextFile.read(userDir + "file2"));
