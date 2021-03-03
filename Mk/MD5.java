@@ -3,6 +3,7 @@ package Mk;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -30,7 +31,7 @@ public class MD5 {
 	 * @throws IOException if writing the object to object output stream fails
 	 * @throws NoSuchAlgorithmException this will never happen
 	 */
-	public static String hash(Object obj) throws IOException, NoSuchAlgorithmException {
+	public static String hash(Serializable obj) throws IOException, NoSuchAlgorithmException {
 		ByteArrayOutputStream baos = null;
 		ObjectOutputStream oos = null;
 

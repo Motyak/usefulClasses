@@ -32,7 +32,7 @@ public class TextFile {
 		System.out.println(TextFile.read(userDir + "file2"));
 
 		System.out.println("printing an overview of file2 (max 10 lines)..");
-		System.out.println(TextFile.overview(userDir + "file2"));
+		System.out.println(TextFile.overview(userDir + "file2", 10));
 
 		System.out.println("deleting file2..");
 		new File(userDir + "file2").delete();
@@ -90,24 +90,25 @@ public class TextFile {
 	/**
 	 * Read a file and return an overview of it
 	 * @param filePath the absolute path of the targeted file
+	 * @param nbOfLines the overview length
 	 * @return an overview of the targeted file
 	 * @throws IOException if there's a problem finding/reading the file
 	 */
-	public static String overview(String filePath) throws IOException {
+	public static String overview(String filePath, int nbOfLines) throws IOException {
 		long totalNbOfLines = TextFile.nbOfLines(filePath);
 
-		if(totalNbOfLines <= 5)
+		if(totalNbOfLines <= nbOfLines)
 			return TextFile.read(filePath);
 		else {
 			InputStream is = new FileInputStream(filePath);
 			BufferedReader buf = new BufferedReader(new InputStreamReader(is));
 			StringBuilder sb = new StringBuilder();
-			for(int i = 1 ; i <= 5 ; ++i)
-					sb.append(buf.readLine()).append("\n");
+			for(int i = 1 ; i <= nbOfLines / 2 ; ++i)
+				sb.append(buf.readLine()).append("\n");
 			sb.append("...\n");
-			for(int i = 1 ; i <= totalNbOfLines - 10 ; ++i)
+			for(int i = 1 ; i <= totalNbOfLines - nbOfLines ; ++i)
 				buf.readLine();
-			for(int i = 1 ; i <= 5 ; ++i)
+			for(int i = 1 ; i <= nbOfLines / 2 ; ++i)
 				sb.append(buf.readLine()).append("\n");
 
 			buf.close();
