@@ -46,7 +46,7 @@ public class TextFile {
 	 */
 	public static String read(String filePath) throws IOException {
 		InputStream is = new FileInputStream(filePath);
-		BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+		BufferedReader buf = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 		String line = buf.readLine();
 		StringBuilder sb = new StringBuilder();
 
